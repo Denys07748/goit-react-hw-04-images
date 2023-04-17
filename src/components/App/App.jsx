@@ -11,7 +11,7 @@ import Modal from 'components/Modal/Modal';
 
 const App = () => {
   const [imagesData, setImagesData] = useState([]);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState('');
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [totalImages, setTotalImages] = useState(0);
@@ -20,29 +20,13 @@ const App = () => {
   const [largeImg, setLargeImg] = useState('');
   const [tagsImg, setTagsImg] = useState('');
 
-  // componentDidUpdate(_, prevState) {
-  //   const { value, page } = this.state
-
-  //   if(value === '') {
-  //     toast.warn('The input field cannot be empty.');
-  //     return;
-  //   }
-
-  //    if (prevState.value !== value || prevState.page !== page) {
-  //     this.getImages(value, page);
-  //    } 
-  // }
-
   useEffect(() => {
     if(value === '') {
-      toast.warn('The input field cannot be empty.');
       return;
     }
 
     getImages(value, page);
   }, [value, page]);
-
-
 
   const getImages = async (query, page) => {
     setIsLoading(true);
@@ -64,6 +48,9 @@ const App = () => {
   }
 
   const handleSearch = (query) => {
+    if(query === '') {
+      toast.warn('The input field cannot be empty.');
+    }
     if(value === query) {
       return;
     }
